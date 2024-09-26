@@ -4,6 +4,8 @@ import About from './pages/About';
 import TakeTest from './pages/TakeTest';
 import StudyQna from './pages/StudyQna';
 import NotFound from './pages/NotFound';
+import Navbar from './components/layouts/Navbar';
+import Footer from './components/layouts/Footer';
 
 
 function App() {
@@ -11,6 +13,7 @@ function App() {
   return (
     <>
       <Router>
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -18,6 +21,7 @@ function App() {
           <Route path="/study-qna" element={<StudyQna />} />
           <Route path='/*' element={<NotFound/>} />
         </Routes>
+        <Footer/>
       </Router>
     </>
   )
