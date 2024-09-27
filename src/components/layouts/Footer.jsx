@@ -27,8 +27,7 @@ const Footer = () => {
                     href={githubUrl} 
                     target="_blank" 
                     rel="noopener" 
-                    color='secondary'
-                    sx={{ color: 'secondary.main', textDecoration: 'none', ml: 1 }}
+                    style={{ color: '#56CCF2', textDecoration: 'none'}}
                 >
                     T.Tsolovikos
                 </Link>
