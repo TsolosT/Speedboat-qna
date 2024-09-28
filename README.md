@@ -1,8 +1,34 @@
-# React + Vite
+# Speedboat Exam Preparation App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The Speedboat Exam Preparation App is a React-based application designed to help users prepare for speedboat exams through a simple multiple-choice testing format. The app allows users to study questions and answers, take practice tests, and track their progress.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- **Home Page**: Overview and navigation to other sections of the app.
+- **About Page**: Information about the application and its purpose.
+- **Take Test Page**: 
+  - Options to select all questions or a random selection of 20 questions.
+  - Option to show correct answers immediately or display results at the end.
+- **Study Q&A Page**: View all questions and answers for study purposes.
+- **Responsive Design**: The app is fully responsive, providing a seamless experience on mobile and desktop devices.
+- **Material-UI**: Utilizes Material-UI for a modern and user-friendly interface.
+
+## Technologies Used
+
+- React
+- Vite
+- Material-UI
+- React Router DOM
+- JSON for question and answer data
+
+## Installation
+
+To get started with the Speedboat Exam Preparation App, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/speedboat-exam-app.git
+   cd speedboat-exam-app
