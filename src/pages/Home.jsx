@@ -39,7 +39,7 @@ function Home() {
                         SpeedBoat
             </Typography>
             <Typography variant="subtitle2" component="div" >
-                Practise {bull}  Exam {bull} Q&A 
+                Practise {bull}  Exam Q&A 
             </Typography>
             <Divider sx={{ width: '100%', my: 2 }} />
             <Stack spacing={2}  direction={{ xs: 'column', sm: 'row' }} >
@@ -93,7 +93,7 @@ function Home() {
                             variant="outlined" 
                             color='secondary'
                             >
-                                Start Practising
+                                Start Studying
                             </Button>
                     </CardActions>
                 </Card>

@@ -14,13 +14,15 @@ function About() {
                     </Typography>
                     <Typography sx={{ color: 'secondary.main', mb: 1.5 }}>Study Case</Typography>
                     <Typography variant="body2">
-                        A React application for practising Q&A tests for speedboat exams.
+                        A React application for practising Q&A tests for speedboat exams. 
                     <br />
                     <a  style={{ color: '#56CCF2'}}   href="https://sgouros-trainingboat.gr/">
                     {' '}
                         Sgouros Trainning Boat
                     {' '}
                     </a>
+                    <br/>
+                    The study and test content is currenly at that version is in Greek.
                     </Typography>
                     <br/>
                     <Typography variant="body2">
