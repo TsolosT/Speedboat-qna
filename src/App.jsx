@@ -6,23 +6,27 @@ import StudyQna from './pages/StudyQna';
 import NotFound from './pages/NotFound';
 import Navbar from './components/layouts/Navbar';
 import Footer from './components/layouts/Footer';
-
+import { QnaProvider } from './context/QnaContext';
 
 function App() {
 
   return (
     <>
-      <Router>
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/take-test" element={<TakeTest />} />
-          <Route path="/study-qna" element={<StudyQna />} />
-          <Route path='/*' element={<NotFound/>} />
-        </Routes>
-        <Footer/>
-      </Router>
+      <QnaProvider>
+        <Router>
+          <Navbar/>
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/take-test" element={<TakeTest />} />
+              <Route path="/study-qna" element={<StudyQna />} />
+              <Route path='/*' element={<NotFound/>} />
+            </Routes>
+          </main>
+          <Footer/>
+        </Router>
+      </QnaProvider>
     </>
   )
 }

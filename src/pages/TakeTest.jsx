@@ -1,10 +1,8 @@
-
+import Spinner from '../components/layouts/Spinner';
 
 function TakeTest() {
     return (
-        <>
-            <h1>test </h1>
-        </>
+        <Spinner/>
     );
 }
 
