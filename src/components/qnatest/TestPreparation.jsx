@@ -2,6 +2,7 @@ import { Box, Button, Divider, Typography, FormControlLabel, Checkbox, CardMedia
 import { useContext, useState } from 'react';
 import takingTestImg from '../../assets/takingtest.png';
 import { TestContext } from '../../context/TestContext';
+import InfoIcon from '@mui/icons-material/Info';
 
 const TestPreparation = ({ onStartTest }) => {
     const [questionCount, setQuestionCount] = useState(null); // null means no selection yet
@@ -38,6 +39,10 @@ const TestPreparation = ({ onStartTest }) => {
             <Box sx={{py:2, borderRadius: '0 1', bgcolor: 'primary.main'} }>
                 
                 <Typography variant="h5"  color="textSecondary">Prepare for the Test</Typography>
+                <Typography  color="textSecondary" >
+                    <InfoIcon sx={{ marginRight: 1, fontSize: '1.5rem', verticalAlign: 'middle' }} />
+                    Keep in mind, that the maximum wrong allowed answer is 2 to pass the test.
+                </Typography>
                 <Typography  color="textSecondary">Set your preferences and press start when ready.</Typography>
                 <Divider aria-hidden="true" sx={{ mx:5 , bgcolor: 'secondary.main' }}/>
                 {/* Checkbox for selecting number of questions */}

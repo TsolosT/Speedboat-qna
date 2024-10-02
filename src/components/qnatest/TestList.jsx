@@ -16,7 +16,7 @@ const TestList = ({ onResetTest, onNewTest }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [answers, setAnswers] = useState([]);
     const [answerCorrect, setAnswerCorrect] = useState(null);
-    const [showResults, setShowResults] = useState(false);
+    const [showResults, setShowResults] = useState(true);
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
 
     const progress = (currentQuestion / totalQuestions) * 100;
