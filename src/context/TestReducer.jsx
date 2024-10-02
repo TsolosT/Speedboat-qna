@@ -3,6 +3,7 @@ export const initialTestState = {
     currentTest: null,
     answers: [],
     results: null,
+    currentQuestion: 0,
 };
 
 export const testReducer = (state, action) => {
@@ -30,7 +31,20 @@ export const testReducer = (state, action) => {
                 results: action.payload,
             };
         case 'RESET_TEST':
-            return initialTestState;
+            return {
+                ...state,
+                answers: [],
+                results: null, 
+                currentTest: {
+                    ...state.currentTest, 
+                },
+                currentQuestion: 0, 
+            };
+        case 'INCREMENT_QUESTION':
+            return { 
+                ...state, 
+                currentQuestion: state.currentQuestion + 1 
+            };
         default:
             return state;
     }

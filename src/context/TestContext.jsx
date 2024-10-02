@@ -42,6 +42,10 @@ export const TestProvider = ({ children }) => {
         dispatch({ type: 'RESET_TEST' });
     };
 
+    const incrementQuestion = () => {
+        dispatch({ type: 'INCREMENT_QUESTION' });
+    };
+
     // Helper function to shuffle an array
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -65,7 +69,8 @@ export const TestProvider = ({ children }) => {
                 startTest, 
                 submitAnswer, 
                 endTest, 
-                resetTest, 
+                resetTest,
+                incrementQuestion,
                 questions 
             }}>
                 {children}

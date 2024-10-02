@@ -8,15 +8,13 @@ import QnaContext from '../../context/QnaContext';
 
 const TestList = ({ onResetTest, onNewTest }) => {
     const { isLoading } = useContext(QnaContext);
-    const { currentTest } = useContext(TestContext); 
+    const { currentTest, currentQuestion, incrementQuestion  } = useContext(TestContext); 
     const { selectedQuestions, showAnswersImmediately } = currentTest || {}; 
     const totalQuestions = selectedQuestions ? selectedQuestions.length : 0;
-
-    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [answers, setAnswers] = useState([]);
     const [answerCorrect, setAnswerCorrect] = useState(null);
-    const [showResults, setShowResults] = useState(true);
+    const [showResults, setShowResults] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
 
     const progress = (currentQuestion / totalQuestions) * 100;
@@ -48,7 +46,7 @@ const TestList = ({ onResetTest, onNewTest }) => {
         setAnswers([...answers, selectedAnswer]);
     
         if (currentQuestion < totalQuestions - 1) {
-            setCurrentQuestion(currentQuestion + 1);
+            incrementQuestion();
             setSelectedAnswer(null); // Reset selected answer
             setAnswerCorrect(null); // Reset correctness for the next question
         } else {

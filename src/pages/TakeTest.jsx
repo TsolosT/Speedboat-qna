@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Box } from '@mui/material';
 import TestPreparation from '../components/qnatest/TestPreparation';
 import TestList from '../components/qnatest/TestList';
+import { TestContext } from '../context/TestContext';
 
 function TakeTest() {
     const [testStarted, setTestStarted] = useState(false);
     const [testSettings, setTestSettings] = useState({ questionCount: null, showAnswers: null });
+    const { resetTest } = useContext(TestContext);
 
     const handleStartTest = (settings) => {
         setTestSettings(settings);
@@ -13,12 +15,12 @@ function TakeTest() {
     };
 
     const handleResetTest = () => {
-        setTestStarted(false);
+        resetTest();
+        setTestStarted(true);
     };
 
     const handleNewTest = () => {
         setTestStarted(false);
-        // Logic for new test setup can be implemented here
     };
 
     return (
