@@ -74,9 +74,9 @@ const TestList = ({ onResetTest, onNewTest }) => {
         );
     }  else {
         return (
-            <Box sx={{ padding: 4 }}>
+            <Box>
                 {!showResults ? (
-                    <>
+                    <Box sx={{  padding: 4 }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="h6">Question {currentQuestion + 1}/{totalQuestions}</Typography>
                             <LinearProgress variant="determinate" value={progress} sx={{ flexGrow: 1, margin: '0 16px' }} />
@@ -127,21 +127,25 @@ const TestList = ({ onResetTest, onNewTest }) => {
                         <Divider aria-hidden="true" sx={{ my: 5, bgcolor: 'secondary.main' }} />
 
                         <Box sx={{ marginTop: 4 }}>
-                            <Button variant="outlined" onClick={onResetTest} sx={{ marginRight: 2 }}>
+                            <Button variant="outlined" onClick={onResetTest} sx={{ marginRight: 2, borderColor: 'primary.main', color: 'primary.main' }}
+                                disabled={currentQuestion === 0}
+                            >
                                 Restart Test
                             </Button>
-                            <Button variant="outlined" onClick={onNewTest}>
+                            <Button variant="outlined" onClick={onNewTest}   sx={{ borderColor: 'secondary.main', color: 'secondary.main' }}>
                                 Set New Test
                             </Button>
                         </Box>
-                    </>
+                    </Box>
                 ) : (
-                    <TestResult
-                        score={calculateResults()} 
-                        total={totalQuestions} 
-                        onResetTest={onResetTest} 
-                        onNewTest={onNewTest} 
-                    />
+                    <Box sx={{  padding: 1}}>
+                        <TestResult
+                            score={calculateResults()} 
+                            total={totalQuestions} 
+                            onResetTest={onResetTest} 
+                            onNewTest={onNewTest} 
+                        />
+                    </Box>
                 )}
             </Box>
         );
