@@ -131,10 +131,10 @@ function StudyQna() {
             <Box
                 sx={{
                     display: 'flex',
-                    justifyContent: 'center', // Horizontally center
-                    alignItems: 'center', // Vertically center
-                    height: '100vh', // Full viewport height
-                    width: '100vw', // Full viewport width
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    height: '100vh', 
+                    width: '100vw', 
                 }}
             >
                 <Spinner />
