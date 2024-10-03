@@ -47,6 +47,12 @@ export const QnaProvider = ({children}) => {
     // Unset the loading state
     const setLoaded = () => dispatch({ type: 'SET_LOADED' }); 
 
+    //Convert Listing from numbers to greek letters 
+    const convertIdToGreekLetter = (id) => {
+        const letters = ['α', 'β', 'γ'];
+        return letters[id - 1] || '';
+    };
+
     return (
         <QnaContext.Provider value={{ 
                 ...state, 
@@ -55,6 +61,7 @@ export const QnaProvider = ({children}) => {
                 scrollToTop,
                 setLoading,
                 setLoaded,
+                convertIdToGreekLetter,
                 isLoading: state.isLoading 
             }}>
             {children}

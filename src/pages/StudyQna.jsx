@@ -27,17 +27,13 @@ function StudyQna() {
         selectedCategory,
         filterQuestions,
         showGoTop,
-        scrollToTop
+        scrollToTop,
+        convertIdToGreekLetter
     } = useContext(QnaContext);
 
     // Filter the questions when category changes
     const handleCategoryChange = (e) => {
         filterQuestions(e.target.value);
-    };
-    //Convert Listing from numbers to greek letters 
-    const convertIdToGreekLetter = (id) => {
-        const letters = ['α', 'β', 'γ'];
-        return letters[id - 1] || '';
     };
 
     if(!isLoading) {

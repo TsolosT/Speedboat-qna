@@ -1,4 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import { Box, Divider, Button, Typography, LinearProgress, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import TestResult from './TestResult';
 import { TestContext } from '../../context/TestContext';
@@ -6,9 +8,9 @@ import Spinner from '../layouts/Spinner';
 import QnaContext from '../../context/QnaContext';
 
 
-const TestList = ({ onResetTest, onNewTest }) => {
-    const { isLoading } = useContext(QnaContext);
-    const { currentTest, currentQuestion, incrementQuestion  } = useContext(TestContext); 
+const TestList = ({ onNewTest }) => {
+    const { isLoading, convertIdToGreekLetter } = useContext(QnaContext);
+    const { currentTest, currentQuestion, incrementQuestion, resetTest  } = useContext(TestContext); 
     const { selectedQuestions, showAnswersImmediately } = currentTest || {}; 
     const totalQuestions = selectedQuestions ? selectedQuestions.length : 0;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -52,6 +54,14 @@ const TestList = ({ onResetTest, onNewTest }) => {
         } else {
             setShowResults(true);
         }
+    };
+
+    const handleResetTest = () => {
+        setShowResults(false); 
+        setSelectedAnswer(null); 
+        setAnsweredQuestions([]); 
+        setAnswers([]); 
+        resetTest();
     };
 
     const calculateResults = () => {
@@ -105,7 +115,7 @@ const TestList = ({ onResetTest, onNewTest }) => {
                                                 }}
                                             />
                                         }
-                                        label={answer.text} 
+                                        label={`${convertIdToGreekLetter(answer.id)}. ${answer.text}`}
                                         sx={{
                                             color: isSelected ? (isCorrect ? '#00BFA6' : 'red') : 'text.primary', // Change label color based on correctness
                                             textDecoration: isSelected ? 'underline' : 'none', // Underline if selected
@@ -127,12 +137,16 @@ const TestList = ({ onResetTest, onNewTest }) => {
                         <Divider aria-hidden="true" sx={{ my: 5, bgcolor: 'secondary.main' }} />
 
                         <Box sx={{ marginTop: 4 }}>
-                            <Button variant="outlined" onClick={onResetTest} sx={{ marginRight: 2, borderColor: 'primary.main', color: 'primary.main' }}
+                            <Button variant="outlined" onClick={handleResetTest}
+                                startIcon={<RestartAltIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/>}
+                                sx={{ marginRight: 2, borderColor: 'primary.main', color: 'primary.main' }}
                                 disabled={currentQuestion === 0}
                             >
                                 Restart Test
                             </Button>
-                            <Button variant="outlined" onClick={onNewTest}   sx={{ borderColor: 'secondary.main', color: 'secondary.main' }}>
+                            <Button variant="outlined" onClick={onNewTest}  
+                                startIcon={<NoteAddOutlinedIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/>}
+                                sx={{ borderColor: 'secondary.main', color: 'secondary.main' }}>
                                 Set New Test
                             </Button>
                         </Box>
@@ -142,7 +156,7 @@ const TestList = ({ onResetTest, onNewTest }) => {
                         <TestResult
                             score={calculateResults()} 
                             total={totalQuestions} 
-                            onResetTest={onResetTest} 
+                            onResetTest={handleResetTest} 
                             onNewTest={onNewTest} 
                         />
                     </Box>

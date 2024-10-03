@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Box, Card, CardMedia, CardContent, Typography, Button, Divider } from '@mui/material';
 import Confetti from 'react-confetti'; 
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import failedExamImg from '../../assets/failed-exam.png';
 import passedExamImg from '../../assets/passed-exam.png';
 
 const TestResult = ({ score, total, onResetTest, onNewTest }) => {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
-    const isPassed = true;//(score >= 18 && total === 20) || (score >= 95 && total === 97);
+    const isPassed = (score >= 18 && total === 20) || (score >= 95 && total === 97);
     const ResultText = isPassed ? 'Passed' : 'Failed';
     const ResultImage = isPassed ? passedExamImg : failedExamImg;
 
@@ -37,7 +39,7 @@ const TestResult = ({ score, total, onResetTest, onNewTest }) => {
                     alt="Results"
                     height="auto" 
                     sx={{ 
-                        maxHeight: '340px', 
+                        maxHeight: '540px', 
                         objectFit: 'cover',
                         width: '100%',
                     }} 
@@ -53,6 +55,7 @@ const TestResult = ({ score, total, onResetTest, onNewTest }) => {
                         <Button 
                             variant="outlined" 
                             onClick={onResetTest} 
+                            startIcon={<RestartAltIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/>}
                             sx={{ bgcolor: 'primary.main', color: 'text.secondary', marginBottom: { xs: 2, sm: 0 }, marginRight: { sm: 2 } }}
                         >
                             Repeat Test
@@ -60,6 +63,7 @@ const TestResult = ({ score, total, onResetTest, onNewTest }) => {
                         <Button 
                             variant="outlined" 
                             onClick={onNewTest} 
+                            startIcon={<NoteAddOutlinedIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/>}
                             sx={{ borderColor: 'secondary.main', color: 'secondary.main' }}
                         >
                             Set New Test
