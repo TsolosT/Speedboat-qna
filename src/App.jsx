@@ -19,6 +19,7 @@ function App() {
             <Navbar/>
             <main>
               <Routes>
+                <Route path="/Speedboat-qna" element={<Home />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/take-test" element={<TakeTest />} />
