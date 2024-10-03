@@ -13,8 +13,10 @@ export const QnaProvider = ({children}) => {
 
     // Load questions and categories when the app loads
     useEffect(() => {
+        setLoading();
         dispatch({ type: 'LOAD_QUESTIONS', payload: QnaData });
         dispatch({ type: 'SET_CATEGORIES', payload: Object.entries(QnaCategories) });
+        
     }, []);
 
     // Handle scroll to toggle "Go to Top" button
@@ -42,6 +44,14 @@ export const QnaProvider = ({children}) => {
     const setLoading = () => dispatch({
         type: 'SET_LOADING'
     })
+    // Unset the loading state
+    const setLoaded = () => dispatch({ type: 'SET_LOADED' }); 
+
+    //Convert Listing from numbers to greek letters 
+    const convertIdToGreekLetter = (id) => {
+        const letters = ['α', 'β', 'γ'];
+        return letters[id - 1] || '';
+    };
 
     return (
         <QnaContext.Provider value={{ 
@@ -49,6 +59,9 @@ export const QnaProvider = ({children}) => {
                 filterQuestions, 
                 showGoTop, 
                 scrollToTop,
+                setLoading,
+                setLoaded,
+                convertIdToGreekLetter,
                 isLoading: state.isLoading 
             }}>
             {children}

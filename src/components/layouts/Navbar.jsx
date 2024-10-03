@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, IconButton, Button, Drawer, List, ListItem, ListItemText, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';  // Menu icon for mobile
-import HomeIcon from '@mui/icons-material/Home';
 import Container from '@mui/material/Container';
 import speedboatIcon from '../../assets/speedboat-logo.png';
 import { useState } from 'react';
@@ -73,7 +72,6 @@ function Navbar() {
               component={Link}
               to="/"
               color="inherit"
-              startIcon={<HomeIcon />}
               sx={{
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',

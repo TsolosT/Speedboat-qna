@@ -27,17 +27,13 @@ function StudyQna() {
         selectedCategory,
         filterQuestions,
         showGoTop,
-        scrollToTop
+        scrollToTop,
+        convertIdToGreekLetter
     } = useContext(QnaContext);
 
     // Filter the questions when category changes
     const handleCategoryChange = (e) => {
         filterQuestions(e.target.value);
-    };
-    //Convert Listing from numbers to greek letters 
-    const convertIdToGreekLetter = (id) => {
-        const letters = ['α', 'β', 'γ'];
-        return letters[id - 1] || '';
     };
 
     if(!isLoading) {
@@ -127,7 +123,19 @@ function StudyQna() {
             </div>
         );
     } else {
-        return <Spinner/>
+        return (
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    height: '100vh', 
+                    width: '100vw', 
+                }}
+            >
+                <Spinner />
+            </Box>
+        );
     }
 }
 
