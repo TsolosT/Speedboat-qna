@@ -16,6 +16,7 @@ export const TestProvider = ({ children }) => {
         setLoading();
         if (useRandom20) {
             // Get 20 random questions
+            // selectedQuestions =  getRandomQuestions(questions, 5); tesing propose
             selectedQuestions =  getRandomQuestions(questions, 20);
         } else {
             // Shuffle all questions

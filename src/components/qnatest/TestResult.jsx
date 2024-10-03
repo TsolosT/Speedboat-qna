@@ -11,6 +11,7 @@ const TestResult = ({ score, total, onResetTest, onNewTest, showAnswers, answere
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
     const isPassed = (score >= 18 && total === 20) || (score >= 95 && total === 97);
+    // const isPassed = (score >= 3 && total === 5) ; //testing propose
     const ResultText = isPassed ? 'Passed' : 'Failed';
     const ResultImage = isPassed ? passedExamImg : failedExamImg;
 
@@ -35,7 +36,7 @@ const TestResult = ({ score, total, onResetTest, onNewTest, showAnswers, answere
             isSelected: q.selectedAnswer === a.id,
         })),
     }));
-
+    console.log(score);
     return (
         <Box sx={{ overflow: 'hidden', position: 'relative', height: !showAnswers ? '100%' : '100vh' }}>
             <Card 

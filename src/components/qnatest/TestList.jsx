@@ -27,35 +27,35 @@ const TestList = ({ onNewTest }) => {
             console.error("No questions available for the test.");
         }
     }, [selectedQuestions]);
-
     const handleAnswerChange = (event) => {
         const selected = parseInt(event.target.value, 10);
         setSelectedAnswer(selected); // Update the selected answer state
     
-        const isCorrect = selected === selectedQuestions[currentQuestion].correct_answer;
-        setAnswerCorrect(isCorrect);  // Set the correctness of the selected answer
-    
-        // If answers are shown immediately, update the state
-        if (showAnswersImmediately) {
-            const updatedAnswers = [...answeredQuestions, { question: selectedQuestions[currentQuestion], isCorrect }];
-            setAnsweredQuestions(updatedAnswers);
-            setAnswers([...answers, selected]);
-        }
+        // Remove correctness check here
+        // Remove the immediate updating of answered questions here
     };
+    
     const handleNextQuestion = () => {
-        const isCorrect = selectedAnswer === selectedQuestions[currentQuestion].correctAnswer;
-        setAnsweredQuestions([...answeredQuestions, { question: selectedQuestions[currentQuestion], isCorrect }]);
-        setAnswers([...answers, selectedAnswer]);
+        // Calculate if the selected answer is correct only when moving to the next question
+        const isCorrect = selectedAnswer === selectedQuestions[currentQuestion].correct_answer;
+    
+        // Update answered questions with the current question's details
+        const updatedAnsweredQuestions = [
+            ...answeredQuestions,
+            { question: selectedQuestions[currentQuestion], isCorrect, selectedAnswer } // Save selected answer for review
+        ];
+        setAnsweredQuestions(updatedAnsweredQuestions); // Update answered questions
+    
+        // Update score here based on answered questions
+        setAnswers([...answers, selectedAnswer]); // Track all selected answers (optional)
     
         if (currentQuestion < totalQuestions - 1) {
             incrementQuestion();
-            setSelectedAnswer(null); // Reset selected answer
-            setAnswerCorrect(null); // Reset correctness for the next question
+            setSelectedAnswer(null); // Reset selected answer for the next question
         } else {
-            setShowResults(true);
+            setShowResults(true); // Show results when reaching the last question
         }
     };
-
     const handleResetTest = () => {
         setShowResults(false); 
         setSelectedAnswer(null); 
