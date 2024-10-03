@@ -18,6 +18,7 @@ export const testReducer = (state, action) => {
                 },
                 answers: [],
                 results: null,
+                currentQuestion: 0,
             };
         case 'SUBMIT_ANSWER':
             return {

@@ -86,7 +86,7 @@ const TestList = ({ onNewTest }) => {
         return (
             <Box>
                 {!showResults ? (
-                    <Box sx={{  padding: 4 }}>
+                    <Box sx={{  padding: 4, height:'100vh' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="h6">Question {currentQuestion + 1}/{totalQuestions}</Typography>
                             <LinearProgress variant="determinate" value={progress} sx={{ flexGrow: 1, margin: '0 16px' }} />
@@ -108,17 +108,20 @@ const TestList = ({ onNewTest }) => {
                                         control={
                                             <Radio
                                                 sx={{
-                                                    color: isSelected ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main', // Change color based on correctness
+                                                    color: isSelected ? 
+                                                        (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main') 
+                                                        : 'primary.main', 
                                                     '&.Mui-checked': {
-                                                        color: isSelected ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main',
+                                                        color: isSelected ?  (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main') 
+                                                        : 'primary.main', 
                                                     },
                                                 }}
                                             />
                                         }
                                         label={`${convertIdToGreekLetter(answer.id)}. ${answer.text}`}
                                         sx={{
-                                            color: isSelected ? (isCorrect ? '#00BFA6' : 'red') : 'text.primary', // Change label color based on correctness
-                                            textDecoration: isSelected ? 'underline' : 'none', // Underline if selected
+                                            color: isSelected ? (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'text.primary')  : 'primary.main',
+                                            textDecoration: isSelected ? 'underline' : 'none', 
                                         }}
                                     />
                                 );
@@ -158,6 +161,8 @@ const TestList = ({ onNewTest }) => {
                             total={totalQuestions} 
                             onResetTest={handleResetTest} 
                             onNewTest={onNewTest} 
+                            showAnswers={showAnswersImmediately}
+                            answeredQuestions={answeredQuestions}
                         />
                     </Box>
                 )}
