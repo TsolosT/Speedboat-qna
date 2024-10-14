@@ -106,7 +106,7 @@ function StudyQna() {
                         onClick={scrollToTop}
                         sx={{
                             position: 'fixed',
-                            bottom: 10,
+                            bottom: 120,
                             right: 10,
                             backgroundColor: 'primary.main', 
                             color: 'white',

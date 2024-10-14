@@ -23,7 +23,7 @@ export const QnaProvider = ({children}) => {
     const handleScroll = () => {
         const scrollY = window.scrollY;
         const documentHeight = document.documentElement.scrollHeight;
-        setShowGoTop(scrollY > documentHeight * 0.1);
+        setShowGoTop(scrollY > documentHeight * 0.05);
     };
 
     useEffect(() => {
