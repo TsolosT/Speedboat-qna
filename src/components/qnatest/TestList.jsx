@@ -84,7 +84,15 @@ const TestList = ({ onNewTest }) => {
         );
     }  else {
         return (
-            <Box>
+            <Box 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '100vh', // Ensure it fills the entire viewport height
+                overflowY: 'auto', // Enable scrolling if content overflows
+                }}
+            >
                 {!showResults ? (
                     <Box sx={{  padding: 4, height:'100vh' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -122,6 +130,7 @@ const TestList = ({ onNewTest }) => {
                                         sx={{
                                             color: isSelected ? (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'text.primary')  : 'primary.main',
                                             textDecoration: isSelected ? 'underline' : 'none', 
+                                            marginBottom: 2, 
                                         }}
                                     />
                                 );
@@ -139,7 +148,15 @@ const TestList = ({ onNewTest }) => {
                         </Button>
                         <Divider aria-hidden="true" sx={{ my: 5, bgcolor: 'secondary.main' }} />
 
-                        <Box sx={{ marginTop: 4 }}>
+                        <Box 
+                            sx={{ 
+                                marginTop: 4, 
+                                paddingBottom: 2, 
+                                display: 'flex', 
+                                gap: 2, // Adds spacing between buttons
+                                flexWrap: 'wrap', // Ensures buttons wrap on smaller screens
+                            }}
+                        >
                             <Button variant="outlined" onClick={handleResetTest}
                                 startIcon={<RestartAltIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/>}
                                 sx={{ marginRight: 2, borderColor: 'primary.main', color: 'primary.main' }}

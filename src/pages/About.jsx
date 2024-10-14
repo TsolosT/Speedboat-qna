@@ -5,31 +5,47 @@ import Container from '@mui/material/Container';
 
 function About() {
     return (
-
-        <Container maxWidth="sm" sx={{ width:'100vw', height: '100vh' , display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Card sx={{ minWidth: 275, backgroundColor:'#f5f5f5'}}>
+        <Container 
+            maxWidth="lg" // Increase the maxWidth to lg for larger layout
+            sx={{ 
+                width: '100vw', 
+                height: '100vh', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'flex-start', 
+                p: 4, // Add padding for spacing
+            }}
+        >
+            <Card 
+                sx={{ 
+                    minWidth: { xs: 300, sm: 500, md: 800 }, // Responsive widths
+                    maxWidth: '100%', 
+                    backgroundColor: '#f5f5f5', 
+                    boxShadow: 3, // Add a subtle shadow for better appearance
+                    p: 4, // Add internal padding for the card
+                }}
+            >
                 <CardContent>
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h4" component="div" sx={{ mb: 2 }}>
                         SpeedBoat Exam Q&A 
                     </Typography>
-                    <Typography sx={{ color: 'secondary.main', mb: 1.5 }}>Study Case</Typography>
-                    <Typography variant="body2">
-                        A React application for practising Q&A tests for speedboat exams. 
-                    <br />
-                    <a  style={{ color: '#56CCF2'}}   href="https://sgouros-trainingboat.gr/">
-                    {' '}
-                        Sgouros Trainning Boat
-                    {' '}
-                    </a>
-                    <br/>
-                    The study and test content is currenly at that version is in Greek.
+                    <Typography sx={{ color: 'secondary.main', mb: 3 }} variant="h6">
+                        Study Case
                     </Typography>
-                    <br/>
-                    <Typography variant="body2">
-                        Version <span>1.0.0</span>
+                    <Typography variant="body1" sx={{ mb: 2 }}>
+                        A React application for practicing Q&A tests for speedboat exams.
                         <br />
-                        Layout used:
-                        <a style={{ color: '#00203F', textDecoration: 'none'}} href="https://mui.com/"> MaterialUI</a>
+                        <a 
+                            style={{ color: '#56CCF2' }} 
+                            href="https://sgouros-trainingboat.gr/"
+                        >
+                            Sgouros Training Boat
+                        </a>
+                        <br />
+                        The study and test content in the current version is available in Greek.
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 2 }}>
+                        Version <span>1.0.0</span>
                     </Typography>
                 </CardContent>
             </Card>

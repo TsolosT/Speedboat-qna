@@ -12,93 +12,110 @@ import takingTestImg from '../assets/takingtest.png';
 import studyTestImg from '../assets/studytest.png';
 import { Link } from 'react-router-dom';
 
-
 function Home() {
     const bull = (
-        <Box
-            component="span"
-            sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-        >
+        <Box component="span" sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}>
             •
         </Box>
     );
 
     return (
-        <Container maxWidth="sm" sx={{ 
-                width:'100vw', 
-                height: '100vh' , 
-                display: 'flex', 
-                justifyContent: 'flex-start', 
-                alignItems: 'flex-start', 
+        <Box
+            sx={{
+                display: 'flex',
                 flexDirection: 'column',
-                mx:'auto',
-                my:3,
-                p: 3,      
-            }}>
-            <Typography variant="h3" component="div" sx={{ mt:'30px' }}>
-                        SpeedBoat
-            </Typography>
-            <Typography variant="subtitle2" component="div" >
-                Practise {bull}  Exam Q&A 
-            </Typography>
-            <Divider sx={{ width: '100%', my: 2 }} />
-            <Stack spacing={2}  direction={{ xs: 'column', sm: 'row' }} >
-                <Card sx={{ maxWidth: 345, backgroundColor: 'primary.main'}}>
-                    <CardMedia
-                        component="img"
-                        alt="Speedboat tests"
-                        height="140"
-                        image={takingTestImg}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" color='info'>
-                        Q&A Tests
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                            Practise Q&A with 20 question or all question by multiple choice test.
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button 
-                                component={Link} 
-                                to="/take-test" 
-                                size="small" 
-                                variant="contained" 
-                                color='secondary'
+                minHeight: '100vh', // Ensures the content takes full height
+            }}
+        >
+            <Container
+                maxWidth="lg"
+                sx={{
+                    flex: 1, // Pushes the footer to the bottom
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    p: 3,
+                }}
+            >
+                <Typography variant="h3" component="div" sx={{ mt: '30px' }}>
+                    SpeedBoat
+                </Typography>
+                <Typography variant="subtitle2" component="div">
+                    Practise {bull} Exam Q&A
+                </Typography>
+                <Divider sx={{ width: '100%', my: 2 }} />
+                <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ width: '100%' }}>
+                    {/* Card 1 */}
+                    <Card
+                        sx={{
+                            width: { xs: '100%', sm: 345, md: 600, lg: 800 },
+                            backgroundColor: 'primary.main',
+                        }}
+                    >
+                        <CardMedia component="img" alt="Speedboat tests" image={takingTestImg}
+                            sx={{
+                                height: { xs: 140, lg: 500 }, // Responsive height: 140px for small, 500px for large screens
+                                objectFit: 'cover', // Ensures the image fits well within the height
+                            }}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div" color="info">
+                                Q&A Tests
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                Practise Q&A with 20 questions or all questions by multiple choice test.
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button
+                                component={Link}
+                                to="/take-test"
+                                size="small"
+                                variant="contained"
+                                color="secondary"
                             >
                                 Start Practising
                             </Button>
-                    </CardActions>
-                </Card>
-                <Card sx={{ maxWidth: 345 , backgroundColor: 'primary.main'}}>
-                    <CardMedia
-                        component="img"
-                        alt="Study tests"
-                        height="140"
-                        image={studyTestImg}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" color='info'>
-                        Q&A Study
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                            See all the questions with their correct answers to study them.
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button 
-                            component={Link} 
-                            to="/study-qna" 
-                            size="small"
-                            variant="outlined" 
-                            color='secondary'
+                        </CardActions>
+                    </Card>
+
+                    {/* Card 2 */}
+                    <Card
+                        sx={{
+                            width: { xs: '100%', sm: 345, md: 600, lg: 800 },
+                            backgroundColor: 'primary.main',
+                        }}
+                    >
+                        <CardMedia component="img" alt="Study tests"  image={studyTestImg}
+                            sx={{
+                                height: { xs: 140, lg: 500 }, // Responsive height: 140px for small, 500px for large screens
+                                objectFit: 'cover', // Ensures the image fits well within the height
+                            }}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div" color="info">
+                                Q&A Study
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                See all the questions with their correct answers to study them.
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button
+                                component={Link}
+                                to="/study-qna"
+                                size="small"
+                                variant="outlined"
+                                color="secondary"
                             >
                                 Start Studying
                             </Button>
-                    </CardActions>
-                </Card>
-            </Stack>
-        </Container>
+                        </CardActions>
+                    </Card>
+                </Stack>
+            </Container>
+        </Box>
     );
 }
 

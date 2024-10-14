@@ -5,34 +5,43 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     const currentYear = new Date().getFullYear(); 
     const githubUrl = 'https://github.com/TsolosT';
+
     return (
         <Box
-            component="footer"
-            sx={{
-            backgroundColor: 'primary.main', 
-            color: 'white', 
-            py: 2, 
-            position: 'relative',
-            width: '100%', 
-            }}
+        component="footer"
+        sx={{
+            backgroundColor: 'primary.main',
+            color: 'white',
+            py: 2,
+            width: '100%',
+            position: 'sticky',  // Ensures footer sticks at the bottom
+            bottom: 0,           // Aligns footer at the bottom
+            mt: 'auto',          // Pushes the footer down if content is small
+        }}
         >
-            <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Container
+            maxWidth="lg"
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <img src={logo} alt="Logo" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
+            <img
+                src={logo}
+                alt="Logo"
+                style={{ width: '40px', height: '40px', marginRight: '8px' }}
+            />
             </Box>
             <Typography variant="body2">
-                © {currentYear} , Develop by 
-                <span style={{ marginLeft: '5px' }}></span>
-                <Link 
-                    href={githubUrl} 
-                    target="_blank" 
-                    rel="noopener" 
-                    style={{ color: '#56CCF2', textDecoration: 'none'}}
-                >
-                    T.Tsolovikos
-                </Link>
+            © {currentYear} , Developed by{' '}
+            <Link
+                href={githubUrl}
+                target="_blank"
+                rel="noopener"
+                style={{ color: '#56CCF2', textDecoration: 'none' }}
+            >
+                T.Tsolovikos
+            </Link>
             </Typography>
-            </Container>
+        </Container>
         </Box>
     );
 };
