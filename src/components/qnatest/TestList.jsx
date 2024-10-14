@@ -105,32 +105,47 @@ const TestList = ({ onNewTest }) => {
                         </Typography>
 
                         <RadioGroup value={selectedAnswer} onChange={handleAnswerChange} sx={{ marginTop: 2 }}>
-                            {selectedQuestions[currentQuestion].answers.map((answer) => {
-                                const isSelected = selectedAnswer === answer.id;
-                                const isCorrect = answer.id === selectedQuestions[currentQuestion].correct_answer;
+                            {selectedQuestions[currentQuestion].answers.map((answer, index) => {
+                                const isSelected = selectedAnswer === index + 1;
+                                const isCorrect = index + 1 === selectedQuestions[currentQuestion].correct_answer;
 
                                 return (
-                                    <FormControlLabel 
-                                        key={answer.id} 
-                                        value={answer.id.toString()} // Ensure the value is a string for the RadioGroup
+                                    <FormControlLabel
+                                        key={answer.id}
+                                        value={(index + 1).toString()}
                                         control={
                                             <Radio
                                                 sx={{
-                                                    color: isSelected ? 
-                                                        (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main') 
-                                                        : 'primary.main', 
+                                                    color: isSelected
+                                                        ? showAnswersImmediately
+                                                            ? isCorrect
+                                                                ? '#00BFA6'
+                                                                : 'red'
+                                                            : 'primary.main'
+                                                        : 'primary.main',
                                                     '&.Mui-checked': {
-                                                        color: isSelected ?  (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main') 
-                                                        : 'primary.main', 
+                                                        color: isSelected
+                                                            ? showAnswersImmediately
+                                                                ? isCorrect
+                                                                    ? '#00BFA6'
+                                                                    : 'red'
+                                                                : 'primary.main'
+                                                            : 'primary.main',
                                                     },
                                                 }}
                                             />
                                         }
-                                        label={`${convertIdToGreekLetter(answer.id)}. ${answer.text}`}
+                                        label={`${convertIdToGreekLetter(index + 1)}. ${answer.text}`}
                                         sx={{
-                                            color: isSelected ? (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'text.primary')  : 'primary.main',
-                                            textDecoration: isSelected ? 'underline' : 'none', 
-                                            marginBottom: 2, 
+                                            color: isSelected
+                                                ? showAnswersImmediately
+                                                    ? isCorrect
+                                                        ? '#00BFA6'
+                                                        : 'red'
+                                                    : 'text.primary'
+                                                : 'primary.main',
+                                            textDecoration: isSelected ? 'underline' : 'none',
+                                            marginBottom: 2,
                                         }}
                                     />
                                 );

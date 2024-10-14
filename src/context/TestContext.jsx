@@ -10,7 +10,7 @@ export const TestProvider = ({ children }) => {
     const [state, dispatch] = useReducer(testReducer, initialTestState);
 
     // Function to start the test
-    const startTest =  ({ useRandom20, showAnswersImmediately }) => {
+    const startTest =  ({ useRandom20, showAnswersImmediately, shuffleAnswers }) => {
         let selectedQuestions;
         
         setLoading();
@@ -22,6 +22,25 @@ export const TestProvider = ({ children }) => {
             // Shuffle all questions
             selectedQuestions =  shuffleArray([...questions]);
         }
+
+        // Shuffle answers per question if shuffleAnswers is true
+        if (shuffleAnswers) {
+            selectedQuestions = selectedQuestions.map((question) => {
+                const shuffledAnswers = shuffleArray([...question.answers]); // Shuffle the answers
+            
+                // Find the new index of the correct answer in the shuffled array
+                const newCorrectAnswerIndex = shuffledAnswers.findIndex(
+                    (ans) => ans.id === question.correct_answer
+                );
+            
+                return {
+                    ...question,
+                    answers: shuffledAnswers, // Use the shuffled answers
+                    correct_answer: newCorrectAnswerIndex+1,
+                };
+            });            
+        }
+
         // Dispatch the action to start the test
         dispatch({ type: 'START_TEST', 
             payload: {
