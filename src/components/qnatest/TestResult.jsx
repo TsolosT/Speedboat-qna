@@ -36,9 +36,8 @@ const TestResult = ({ score, total, onResetTest, onNewTest, showAnswers, answere
             isSelected: q.selectedAnswer === a.id,
         })),
     }));
-    console.log(score);
     return (
-        <Box sx={{ overflow: 'hidden', position: 'relative', height: !showAnswers ? '100%' : '100vh' }}>
+        <Box sx={{ overflow: 'hidden', position: 'relative', height:  '100%'}}>
             <Card 
                 sx={{ 
                     maxWidth: { xs: '90%', sm: '80%', md: '50%' }, 
@@ -96,7 +95,7 @@ const TestResult = ({ score, total, onResetTest, onNewTest, showAnswers, answere
             </Card>
         
             {/* Wrong Answer Results should be rendered here */}
-            {!showAnswers && <WrongAnwserResults wrongQuestions={wrongQuestions} />}
+            <WrongAnwserResults wrongQuestions={wrongQuestions} />
     </Box>
     
     );
