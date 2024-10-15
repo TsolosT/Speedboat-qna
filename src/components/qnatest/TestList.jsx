@@ -10,12 +10,13 @@ import QnaContext from '../../context/QnaContext';
 
 const TestList = ({ onNewTest }) => {
     const { isLoading, convertIdToGreekLetter } = useContext(QnaContext);
-    const { currentTest, currentQuestion, incrementQuestion, resetTest  } = useContext(TestContext); 
+    const { currentTest, currentQuestion, incrementQuestion, resetTest, restartWithQuestions  } = useContext(TestContext); 
     const { selectedQuestions, showAnswersImmediately } = currentTest || {}; 
     const totalQuestions = selectedQuestions ? selectedQuestions.length : 0;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [answers, setAnswers] = useState([]);
-    const [answerCorrect, setAnswerCorrect] = useState(null);
+    const [correctAnswer, setCorrectAnswer] = useState(null); 
+    const [answerLocked, setAnswerLocked] = useState(false); 
     const [showResults, setShowResults] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
 
@@ -27,12 +28,17 @@ const TestList = ({ onNewTest }) => {
             console.error("No questions available for the test.");
         }
     }, [selectedQuestions]);
+
     const handleAnswerChange = (event) => {
+        if (answerLocked) return; // Prevent changing answer if locked
         const selected = parseInt(event.target.value, 10);
-        setSelectedAnswer(selected); // Update the selected answer state
+        setSelectedAnswer(selected);
     
-        // Remove correctness check here
-        // Remove the immediate updating of answered questions here
+        if (showAnswersImmediately) {
+            setAnswerLocked(true); // Lock the answer after first selection
+            const correct = selectedQuestions[currentQuestion].correct_answer;
+            setCorrectAnswer(correct);
+        }
     };
     
     const handleNextQuestion = () => {
@@ -52,17 +58,34 @@ const TestList = ({ onNewTest }) => {
         if (currentQuestion < totalQuestions - 1) {
             incrementQuestion();
             setSelectedAnswer(null); // Reset selected answer for the next question
+            setAnswerLocked(false); // Reset lock for the next question
         } else {
             setShowResults(true); // Show results when reaching the last question
         }
     };
     const handleResetTest = () => {
         setShowResults(false); 
+        setCorrectAnswer(false);
+        setAnswerLocked(false); 
         setSelectedAnswer(null); 
         setAnsweredQuestions([]); 
         setAnswers([]); 
         resetTest();
     };
+
+    const handleRepeatWrongTest = () =>{
+        const wrongQuestions = answeredQuestions.filter(q => !q.isCorrect).map(q => q.question); 
+        if (wrongQuestions.length === 0) {
+            console.error("No incorrect questions to retry.");
+            return;
+        }
+        restartWithQuestions(wrongQuestions, showAnswersImmediately);
+        setShowResults(false); 
+        setSelectedAnswer(null); 
+        setAnswers([]); 
+        setAnsweredQuestions([]); 
+        setAnswerLocked(false); 
+    }
 
     const calculateResults = () => {
         const correctAnswers = answeredQuestions.filter(q => q.isCorrect).length;
@@ -85,7 +108,7 @@ const TestList = ({ onNewTest }) => {
     }  else {
         return (
             <Box 
-            sx={{
+                sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -103,34 +126,62 @@ const TestList = ({ onNewTest }) => {
                         <Typography variant="h5" sx={{ marginTop: 3 }}>
                             {selectedQuestions[currentQuestion].question}
                         </Typography>
-
                         <RadioGroup value={selectedAnswer} onChange={handleAnswerChange} sx={{ marginTop: 2 }}>
-                            {selectedQuestions[currentQuestion].answers.map((answer) => {
-                                const isSelected = selectedAnswer === answer.id;
-                                const isCorrect = answer.id === selectedQuestions[currentQuestion].correct_answer;
-
+                            {selectedQuestions[currentQuestion].answers.map((answer, index) => {
+                                const answerValue = index + 1; // Answer values start from 1
+                                const isSelected = selectedAnswer === answerValue; // Whether this answer is selected
+                                const isCorrect = answerValue === selectedQuestions[currentQuestion].correct_answer; // Whether this is the correct answer
+                                // Determine conditions for highlighting correct/incorrect answers
+                                const showCorrect = answerLocked && showAnswersImmediately && isCorrect; // Show correct answer in green
+                                const showWrong = answerLocked && showAnswersImmediately && isSelected && !isCorrect; // Show selected wrong answer in red
                                 return (
-                                    <FormControlLabel 
-                                        key={answer.id} 
-                                        value={answer.id.toString()} // Ensure the value is a string for the RadioGroup
+                                    <FormControlLabel
+                                        key={answer.id}
+                                        disabled={answerLocked} 
+                                        value={answerValue.toString()}
                                         control={
                                             <Radio
                                                 sx={{
-                                                    color: isSelected ? 
-                                                        (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main') 
-                                                        : 'primary.main', 
+                                                    // Set the radio button's color based on conditions
+                                                    color: showCorrect
+                                                        ? '#00BFA6!important' // Green for correct answer
+                                                        : showWrong
+                                                            ? 'red!important' // Red for wrong selected answer
+                                                            : 'primary.main', // Primary color when answers are not locked
                                                     '&.Mui-checked': {
-                                                        color: isSelected ?  (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'primary.main') 
-                                                        : 'primary.main', 
+                                                        color: showCorrect
+                                                            ? '#00BFA6!important' // Ensure the correct answer stays green if selected
+                                                            : showWrong
+                                                                ? 'red!important' // Ensure wrong answer stays red
+                                                                : 'primary.main', // Primary color when not showing answers
+                                                    },
+                                                    '&.Mui-disabled': {
+                                                        color: showCorrect
+                                                            ? '#00BFA6!important' // Force green even when disabled
+                                                            : showWrong
+                                                                ? 'red!important' // Force red for wrong selected answer
+                                                                : 'rgba(0, 0, 0, 0.26)', // Default disabled grey for unselected answers
                                                     },
                                                 }}
                                             />
                                         }
-                                        label={`${convertIdToGreekLetter(answer.id)}. ${answer.text}`}
+                                        label={`${convertIdToGreekLetter(answerValue)}. ${answer.text}`}
                                         sx={{
-                                            color: isSelected ? (showAnswersImmediately ? (isCorrect ? '#00BFA6' : 'red') : 'text.primary')  : 'primary.main',
-                                            textDecoration: isSelected ? 'underline' : 'none', 
-                                            marginBottom: 2, 
+                                            // Label text color and style
+                                            color: showCorrect
+                                                ? '#00BFA6' // Green for correct answer
+                                                : showWrong
+                                                    ? 'red' // Red for wrong selected answer
+                                                    : 'text.primary', // Default color for unselected answers
+                                            textDecoration: showCorrect || isSelected ? 'underline' : 'none', // Underline if selected or correct
+                                            marginBottom: 2,
+                                            '& .Mui-disabled': {
+                                                color: showCorrect
+                                                    ? '#00BFA6' // Prevent label from being greyed out for correct answer
+                                                    : showWrong
+                                                        ? 'red' // Ensure wrong answer label stays red
+                                                        : 'text.primary', // Default color for other cases
+                                            },
                                         }}
                                     />
                                 );
@@ -180,6 +231,7 @@ const TestList = ({ onNewTest }) => {
                             onNewTest={onNewTest} 
                             showAnswers={showAnswersImmediately}
                             answeredQuestions={answeredQuestions}
+                            onRepeatWrongTest={handleRepeatWrongTest}
                         />
                     </Box>
                 )}

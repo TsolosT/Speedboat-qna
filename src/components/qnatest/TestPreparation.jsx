@@ -9,6 +9,8 @@ const TestPreparation = ({ onStartTest }) => {
     const [questionCount, setQuestionCount] = useState(null); // null means no selection yet
     const [showAnswers, setShowAnswers] = useState(null); // null means no selection yet
     const { startTest } = useContext(TestContext);
+    const [shuffleAnswers, setShuffleAnswers] = useState(false);
+
 
     // Handler for starting the test
     const handleStartTest = () => {
@@ -16,7 +18,8 @@ const TestPreparation = ({ onStartTest }) => {
             // Pass the selected test options to the context's startTest function
             startTest({
                 useRandom20: questionCount === 20,  // If selected 20 questions, otherwise all
-                showAnswersImmediately: showAnswers === 'immediately'  // Show answers immediately or at the end
+                showAnswersImmediately: showAnswers === 'immediately', // Show answers immediately or at the end
+                shuffleAnswers
             });
             // Call onStartTest to trigger the parent to update testStarted state
             onStartTest({
@@ -119,7 +122,22 @@ const TestPreparation = ({ onStartTest }) => {
                         sx={{ color: 'text.secondary' }}
                     />
                 </Box>
-
+                {/* Checkbox for selecting to shuffle anwsers at questions */}
+                <Box sx={{ marginTop: 2 }}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                onChange={() => setShuffleAnswers(prev => !prev)}
+                                sx={{
+                                    color: 'white', 
+                                    '&.Mui-checked': { color: 'white' }
+                                }}
+                            />
+                        }
+                        label="Shuffle Answers"
+                        sx={{ color: 'text.secondary' }}
+                    />   
+                </Box>
                 {/* Start button - only enabled if both options are selected */}
                 <Button 
                     variant="contained" 
