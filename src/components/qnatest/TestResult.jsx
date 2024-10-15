@@ -3,11 +3,12 @@ import { Box, Card, CardMedia, CardContent, Typography, Button, Divider } from '
 import Confetti from 'react-confetti'; 
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
+import RepeatIcon from '@mui/icons-material/Repeat';
 import failedExamImg from '../../assets/failed-exam.png';
 import passedExamImg from '../../assets/passed-exam.png';
 import WrongAnwserResults from './WrongAnwserResults';
 
-const TestResult = ({ score, total, onResetTest, onNewTest, showAnswers, answeredQuestions }) => {
+const TestResult = ({ score, total, onResetTest, onNewTest, onRepeatWrongTest, showAnswers, answeredQuestions }) => {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
     const isPassed = (score >= 18 && total === 20) || (score >= 95 && total === 97);
@@ -84,9 +85,18 @@ const TestResult = ({ score, total, onResetTest, onNewTest, showAnswers, answere
                         </Button>
                         <Button 
                             variant="outlined" 
+                            onClick={onRepeatWrongTest} 
+                            disabled={answeredQuestions.every(q => q.isCorrect)} 
+                            startIcon={<RepeatIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/> }
+                            sx={{ borderColor: 'secondary.main', color: 'secondary.main', marginRight: { sm: 2 } , marginBottom: { xs: 2, sm: 0 }}}
+                        >
+                            Repeat Wrong Questions
+                        </Button>
+                        <Button 
+                            variant="outlined" 
                             onClick={onNewTest} 
                             startIcon={<NoteAddOutlinedIcon sx={{ fontSize: '1.7rem', verticalAlign: 'middle' }}/> }
-                            sx={{ borderColor: 'secondary.main', color: 'secondary.main' }}
+                            sx={{ borderColor: 'info.main', color: 'info.main' }}
                         >
                             Set New Test
                         </Button>

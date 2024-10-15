@@ -10,7 +10,7 @@ import QnaContext from '../../context/QnaContext';
 
 const TestList = ({ onNewTest }) => {
     const { isLoading, convertIdToGreekLetter } = useContext(QnaContext);
-    const { currentTest, currentQuestion, incrementQuestion, resetTest  } = useContext(TestContext); 
+    const { currentTest, currentQuestion, incrementQuestion, resetTest, restartWithQuestions  } = useContext(TestContext); 
     const { selectedQuestions, showAnswersImmediately } = currentTest || {}; 
     const totalQuestions = selectedQuestions ? selectedQuestions.length : 0;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -72,6 +72,20 @@ const TestList = ({ onNewTest }) => {
         setAnswers([]); 
         resetTest();
     };
+
+    const handleRepeatWrongTest = () =>{
+        const wrongQuestions = answeredQuestions.filter(q => !q.isCorrect).map(q => q.question); 
+        if (wrongQuestions.length === 0) {
+            console.error("No incorrect questions to retry.");
+            return;
+        }
+        restartWithQuestions(wrongQuestions, showAnswersImmediately);
+        setShowResults(false); 
+        setSelectedAnswer(null); 
+        setAnswers([]); 
+        setAnsweredQuestions([]); 
+        setAnswerLocked(false); 
+    }
 
     const calculateResults = () => {
         const correctAnswers = answeredQuestions.filter(q => q.isCorrect).length;
@@ -217,6 +231,7 @@ const TestList = ({ onNewTest }) => {
                             onNewTest={onNewTest} 
                             showAnswers={showAnswersImmediately}
                             answeredQuestions={answeredQuestions}
+                            onRepeatWrongTest={handleRepeatWrongTest}
                         />
                     </Box>
                 )}

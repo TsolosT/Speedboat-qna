@@ -16,7 +16,7 @@ export const TestProvider = ({ children }) => {
         setLoading();
         if (useRandom20) {
             // Get 20 random questions
-            // selectedQuestions =  getRandomQuestions(questions, 5); tesing propose
+            // selectedQuestions =  getRandomQuestions(questions, 5); //testing propose
             selectedQuestions =  getRandomQuestions(questions, 20);
         } else {
             // Shuffle all questions
@@ -66,6 +66,16 @@ export const TestProvider = ({ children }) => {
         dispatch({ type: 'INCREMENT_QUESTION' });
     };
 
+    const restartWithQuestions = (customQuestions, showAnswersImmediately = false) => {
+        dispatch({
+            type: 'START_TEST',
+            payload: {
+                selectedQuestions: customQuestions,
+                showAnswersImmediately,
+            },
+        });
+    };
+
     // Helper function to shuffle an array
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -91,6 +101,7 @@ export const TestProvider = ({ children }) => {
                 endTest, 
                 resetTest,
                 incrementQuestion,
+                restartWithQuestions,
                 questions 
             }}>
                 {children}
