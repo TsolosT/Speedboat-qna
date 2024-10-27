@@ -6,6 +6,12 @@ The Speedboat Exam Preparation App is a React-based application designed to help
 <br>
 <small>Note: Currently only support Q&A in Greek</small>
 
+
+## Live Preview
+
+Check out the live version of the app here: [Speedboat Qna on Github Pages](https://tsolost.github.io/Speedboat-qna/)
+
+
 ## Features
 
 - **Home Page**: Overview and navigation to other sections of the app.
