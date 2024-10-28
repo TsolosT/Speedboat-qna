@@ -4,6 +4,7 @@ import takingTestImg from '../../assets/takingtest.png';
 import { TestContext } from '../../context/TestContext';
 import SailingOutlinedIcon from '@mui/icons-material/SailingOutlined';
 import InfoIcon from '@mui/icons-material/Info';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const TestPreparation = ({ onStartTest }) => {
     const [questionCount, setQuestionCount] = useState(null); // null means no selection yet
@@ -47,7 +48,10 @@ const TestPreparation = ({ onStartTest }) => {
                     <InfoIcon sx={{ marginRight: 1, fontSize: { xs: '0.85rem', sm: '1rem' } , verticalAlign: 'middle' }} />
                     Keep in mind, that the maximum wrong allowed answer is 2 to pass the test.
                 </Typography>
-                <Typography  color="textSecondary"  sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }} >Set your preferences and press start when ready.</Typography>
+                <Typography  color="textSecondary"  sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }} >
+                    <ArrowRightAltIcon sx={{ marginRight: 1, fontSize: { xs: '0.85rem', sm: '1rem' } , verticalAlign: 'middle' }} />
+                    Set your preferences and press start when ready.
+                </Typography>
                 <Divider aria-hidden="true" sx={{ mx:5 , bgcolor: 'secondary.main' }}/>
                 {/* Checkbox for selecting number of questions */}
                 <Box sx={{ marginTop: 2 }} >

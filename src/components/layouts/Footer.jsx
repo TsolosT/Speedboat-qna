@@ -14,9 +14,9 @@ const Footer = () => {
             color: 'white',
             py: 2,
             width: '100%',
-            position: 'sticky',  // Ensures footer sticks at the bottom
-            bottom: 0,           // Aligns footer at the bottom
-            mt: 'auto',          // Pushes the footer down if content is small
+            position: 'sticky',  
+            bottom: 0,        
+            mt: 'auto',        
         }}
         >
         <Container
