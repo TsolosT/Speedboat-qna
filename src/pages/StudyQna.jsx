@@ -44,8 +44,9 @@ function StudyQna() {
     // Handle section (tab) change
     const handleSectionChange = (event, newValue) => {
         setSelectedSection(newValue);
+        setSelectedBasicSection(0); //Reset option after return to tab Basic rules
+        filterQuestions('All'); // Reset Qna tab
     };
-
     // Handle category change for filtering
     const handleCategoryChange = (e) => {
         filterQuestions(e.target.value);
@@ -110,7 +111,7 @@ function StudyQna() {
                 {/* Render the content based on the selected tab */}
                 <Container sx={{ marginTop: 2 }}>
                     { selectedSection === 0 && (
-                            <BasicRules selectedCategory={selectedBasicSection} />
+                        <BasicRules selectedCategory={selectedBasicSection} />
                     )}
                     {selectedSection === 1 && (
                         <WindCompass/>

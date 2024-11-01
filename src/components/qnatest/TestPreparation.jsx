@@ -6,6 +6,7 @@ import SailingOutlinedIcon from '@mui/icons-material/SailingOutlined';
 import InfoIcon from '@mui/icons-material/Info';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
+// eslint-disable-next-line react/prop-types
 const TestPreparation = ({ onStartTest }) => {
     const [questionCount, setQuestionCount] = useState(null); // null means no selection yet
     const [showAnswers, setShowAnswers] = useState(null); // null means no selection yet

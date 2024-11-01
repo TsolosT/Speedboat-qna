@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { List, ListItem, ListItemText, Typography, Box } from '@mui/material';
 
 function QnaList({ questions, convertIdToGreekLetter }) {
@@ -15,6 +16,7 @@ function QnaList({ questions, convertIdToGreekLetter }) {
                             return (
                                 <ListItemText key={answer.id}>
                                     <Box
+                                        className={isCorrect ? 'correct-answer' : ''} // for testing
                                         sx={{
                                             padding: 1,
                                             border: isCorrect ? '1px solid #00BFA6' : 'none', 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
 import { Container, Typography, Button, keyframes } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";

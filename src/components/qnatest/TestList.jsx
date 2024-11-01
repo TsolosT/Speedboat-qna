@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useContext, useEffect } from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
@@ -15,6 +16,7 @@ const TestList = ({ onNewTest }) => {
     const totalQuestions = selectedQuestions ? selectedQuestions.length : 0;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [answers, setAnswers] = useState([]);
+    // eslint-disable-next-line no-unused-vars
     const [correctAnswer, setCorrectAnswer] = useState(null); 
     const [answerLocked, setAnswerLocked] = useState(false); 
     const [showResults, setShowResults] = useState(false);
