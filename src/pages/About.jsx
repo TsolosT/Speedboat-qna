@@ -64,6 +64,7 @@ function About() {
                             <li>Immediate feedback on correct and incorrect answers.</li>
                             <li>Review incorrect answers and repeat tests to improve.</li>
                             <li>Progress tracking with visual indicators (progress bars).</li>
+                            <li>Study learning content for test questions/answers and more.</li>
                         </ul>
                     </Typography>
 
@@ -87,7 +88,7 @@ function About() {
                     </Typography>
 
                     <Typography variant="body2" sx={{ mt: 1 }}>
-                        Future Updates: We plan to introduce more languages and more syllabus content in upcoming versions.
+                        Future Updates: We plan to introduce more languages, more indebt syllabus content and AI chat Bot to ask any related to content question in upcoming versions.
                     </Typography>
                 </CardContent>
             </Card>
