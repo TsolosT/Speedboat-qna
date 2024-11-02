@@ -1,12 +1,12 @@
-name: Deploy Vite React App to GitHub Pages
+name: Test and Deploy Vite React App to GitHub Pages
 
 on:
   push:
     branches:
-      - master  # Change this to your main branch if it's not master
+      - master 
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,20 +16,37 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16' # Specify the Node.js version
+        node-version: '16'
 
     - name: Install dependencies
-      run: |
-        npm install
+      run: npm install
+
+    - name: Run Vitest
+      run: npm run test:ci 
+     
+  deploy:
+    needs: test 
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
 
     - name: Build the app
-      run: |
-        npm run build
+      run: npm run build
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
-        publish_branch: gh-pages # You can change this to any branch you want to publish to
+        publish_branch: gh-pages 
         publish_repo: ${{ github.repository }}
