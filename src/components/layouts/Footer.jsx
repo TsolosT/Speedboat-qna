@@ -1,6 +1,5 @@
 import { Box, Typography, Container } from '@mui/material';
 import logo from '../../assets/speedboat-logo.png';
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear(); 
@@ -14,9 +13,9 @@ const Footer = () => {
             color: 'white',
             py: 2,
             width: '100%',
-            position: 'sticky',  // Ensures footer sticks at the bottom
-            bottom: 0,           // Aligns footer at the bottom
-            mt: 'auto',          // Pushes the footer down if content is small
+            position: 'sticky',  
+            bottom: 0,        
+            mt: 'auto',        
         }}
         >
         <Container
@@ -32,14 +31,14 @@ const Footer = () => {
             </Box>
             <Typography variant="body2">
             © {currentYear} , Developed by{' '}
-            <Link
+            <a
                 href={githubUrl}
                 target="_blank"
                 rel="noopener"
                 style={{ color: '#56CCF2', textDecoration: 'none' }}
             >
                 T.Tsolovikos
-            </Link>
+            </a>
             </Typography>
         </Container>
         </Box>

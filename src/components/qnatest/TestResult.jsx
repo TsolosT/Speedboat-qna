@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { Box, Card, CardMedia, CardContent, Typography, Button, Divider } from '@mui/material';
 import Confetti from 'react-confetti'; 
@@ -8,6 +9,7 @@ import failedExamImg from '../../assets/failed-exam.png';
 import passedExamImg from '../../assets/passed-exam.png';
 import WrongAnwserResults from './WrongAnwserResults';
 
+// eslint-disable-next-line no-unused-vars
 const TestResult = ({ score, total, onResetTest, onNewTest, onRepeatWrongTest, showAnswers, answeredQuestions }) => {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);

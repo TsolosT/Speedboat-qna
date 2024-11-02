@@ -1,21 +1,21 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Spinner from '../components/layouts/Spinner';
-import QnaContext  from '../context/QnaContext';
+import QnaContext from '../context/QnaContext';
+import QnaList from '../components/qnastudy/QnaList'; 
+import BasicRules from '../components/qnastudy/BasicRules';
+import WindCompass from '../components/qnastudy/WindCompass';
 
 import {
-        AppBar,
-        Box,
-        Toolbar,
-        Typography,
-        FormControl,
-        Select,
-        MenuItem,
-        List,
-        ListItem,
-        ListItemText,
-        Container,
-        IconButton
-    } from '@mui/material';
+    AppBar,
+    Box,
+    FormControl,
+    Select,
+    MenuItem,
+    Container,
+    IconButton,
+    Tabs,
+    Tab,
+} from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
@@ -28,79 +28,105 @@ function StudyQna() {
         filterQuestions,
         showGoTop,
         scrollToTop,
-        convertIdToGreekLetter
+        convertIdToGreekLetter,
     } = useContext(QnaContext);
 
-    // Filter the questions when category changes
+    const basicCategories = [
+        [0, 'Κανόνες Προτεραίοτητας'],
+        [1, 'Πριν από τον Απόπλου'],
+        [2, 'Σε Λιμάνι'],
+        [3, 'Κατά τον Πλου'],
+        [4, 'Διεθνής Ναυτικός Κώδικας'],
+    ];
+    const [selectedBasicSection, setSelectedBasicSection] = useState(0); // Track selected on basic rules section
+    const [selectedSection, setSelectedSection] = useState(0); // Track selected tab
+
+    // Handle section (tab) change
+    const handleSectionChange = (event, newValue) => {
+        setSelectedSection(newValue);
+        setSelectedBasicSection(0); //Reset option after return to tab Basic rules
+        filterQuestions('All'); // Reset Qna tab
+    };
+    // Handle category change for filtering
     const handleCategoryChange = (e) => {
         filterQuestions(e.target.value);
+        setSelectedBasicSection(e.target.value);
     };
 
-    if(!isLoading) {
+    if (!isLoading) {
         return (
             <div>
-                {/* Top AppBar with category select */}
-                <AppBar position="sticky" sx={{py: '8px'}}>
-                    <Toolbar>
-                        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                            Study Q&A
-                        </Typography>
-                        <FormControl>
-                            <Select
-                                value={selectedCategory}
-                                onChange={handleCategoryChange}
-                                sx={{ color: 'info.main', border: '1px solid #56CCF2'}}
-                                IconComponent={() => (
-                                    <FilterAltIcon sx={{ color: 'info.main' , mr:'2px' }} /> 
-                                )}
-                            >
-                                {categories.map(([key, value]) => (
-                                    <MenuItem key={key} value={key}>
-                                        {value}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Toolbar>
+                <AppBar position="sticky" sx={{ py: '8px', backgroundColor:'background.default' }}>
+                        {/* Tabs for switching sections */}
+                        <Tabs value={selectedSection} onChange={handleSectionChange} 
+                            textColor="secondary"
+                            indicatorColor="secondary"
+                            centered
+                            sx={{pb:"5px"}}
+                        >
+                            <Tab label="Basic Rules" sx={{color:'primary.main'}}/>
+                            <Tab label="In Dept" disabled/>
+                            <Tab label="Q&A" sx={{color:'primary.main'}}/>
+                        </Tabs>
+                        {/* Render the category filter only if BaSIC tab is selected */}
+                        {selectedSection === 0 && (
+                            <FormControl sx={{ mx: 1 }}>
+                                <Select
+                                    value={selectedBasicSection}
+                                    onChange={handleCategoryChange}
+                                    sx={{ color: 'info.main', border: '1px solid #56CCF2' }}
+                                    IconComponent={() => (
+                                        <FilterAltIcon sx={{ color: 'info.main', mr: '2px' }} />
+                                    )}
+                                >
+                                    {basicCategories.map(([key, value]) => (
+                                        <MenuItem key={key} value={key}>
+                                            {value}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        )}
+                        {/* Render the category filter only if Q&A tab is selected */}
+                        {selectedSection === 2 && (
+                            <FormControl sx={{ mx: 1 }}>
+                                <Select
+                                    value={selectedCategory}
+                                    onChange={handleCategoryChange}
+                                    sx={{ color: 'info.main', border: '1px solid #56CCF2' }}
+                                    IconComponent={() => (
+                                        <FilterAltIcon sx={{ color: 'info.main', mr: '2px' }} />
+                                    )}
+                                >
+                                    {categories.map(([key, value]) => (
+                                        <MenuItem key={key} value={key}>
+                                            {value}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        )}
                 </AppBar>
 
-                {/* List of questions */}
+                {/* Render the content based on the selected tab */}
                 <Container sx={{ marginTop: 2 }}>
-                    <List>
-                    {filteredQuestions.map((qna) => (
-                        <ListItem key={qna.id} sx={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <Typography variant="subtitle2" sx={{ marginTop: 2 }}>
-                                {qna.category[0].title} {/* Display the category name */}
-                        </Typography>
-                        <Typography variant="h6">{qna.id}.{' '}{qna.question}</Typography>
-                        <List>
-                            {qna.answers.map((answer) => {
-                                    // Check if this answer is the correct one
-                                    const isCorrect = answer.id === qna.correct_answer;
-                                    return (
-                                        <ListItemText key={answer.id}>
-                                            <Box
-                                                sx={{
-                                                    padding: 1,
-                                                    border: isCorrect ? '1px solid #00BFA6' : 'none', // Green border for correct answer
-                                                    borderRadius: 2, // Rounded corners
-                                                    backgroundColor: isCorrect ? '##e0f7e017' : 'transparent', // Light green background for correct answer
-                                                    color: isCorrect ? 'success.main' : 'inherit', // Change text color for correct answer
-                                                }}
-                                            >
-                                                {convertIdToGreekLetter(answer.id)}. {answer.text}
-                                            </Box>
-                                        </ListItemText>
-                                    );
-                                })}
-                        </List>
-                        </ListItem>
-                    ))}
-                    </List>
+                    { selectedSection === 0 && (
+                        <BasicRules selectedCategory={selectedBasicSection} />
+                    )}
+                    {selectedSection === 1 && (
+                        <WindCompass/>
+                    )}   
+                    {selectedSection === 2 && (
+                        <QnaList 
+                            questions={filteredQuestions} 
+                            convertIdToGreekLetter={convertIdToGreekLetter} 
+                        />
+                    )}
                 </Container>
+
                 {/* Go to Top Button */}
                 {showGoTop && (
-                    <IconButton 
+                    <IconButton
                         aria-label="Go to top"
                         variant="contained"
                         onClick={scrollToTop}
@@ -108,18 +134,17 @@ function StudyQna() {
                             position: 'fixed',
                             bottom: 120,
                             right: 10,
-                            backgroundColor: 'primary.main', 
+                            backgroundColor: 'primary.main',
                             color: 'white',
                             '&:hover': {
-                                backgroundColor: 'primary.main', 
+                                backgroundColor: 'primary.main',
                                 transform: 'scale(1.05)',
                             },
                         }}
                     >
-                        <ArrowUpwardIcon/>
+                        <ArrowUpwardIcon />
                     </IconButton>
                 )}
-
             </div>
         );
     } else {
@@ -127,10 +152,10 @@ function StudyQna() {
             <Box
                 sx={{
                     display: 'flex',
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    height: '100vh', 
-                    width: '100vw', 
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    width: '100vw',
                 }}
             >
                 <Spinner />

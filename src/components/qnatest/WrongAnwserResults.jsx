@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useContext } from 'react';

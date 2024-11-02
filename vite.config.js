@@ -1,8 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { configDefaults } from 'vitest/config';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base:'/Speedboat-qna'
-})
+  base: '/Speedboat-qna',
+  resolve: {
+    alias: {
+      src: '/src', 
+    },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/tests/setup.js', 
+    exclude: [...configDefaults.exclude, 'e2e/*'],
+  },
+});
