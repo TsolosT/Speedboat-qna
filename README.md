@@ -29,8 +29,9 @@ Check out the live version of the app here: [Speedboat Qna on Github Pages](http
 - React
 - Vite
 - Material-UI
-- React Router DOM
+- React Router DOM, Context Api
 - JSON for question and answer data
+- Vitest 
 
 ## Installation
 
